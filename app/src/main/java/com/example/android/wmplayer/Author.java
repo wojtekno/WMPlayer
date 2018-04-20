@@ -18,6 +18,11 @@ public class Author {
         this.numberOfTracks = 23;
     }
 
+    public Author(String name, int numberOfTracks) {
+        this.authorsName = name;
+        this.numberOfTracks = numberOfTracks;
+    }
+
     public String getAuthorsName() {
         return authorsName;
     }

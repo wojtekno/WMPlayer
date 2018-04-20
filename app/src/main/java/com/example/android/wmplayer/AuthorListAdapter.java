@@ -17,8 +17,11 @@ import java.util.ArrayList;
 
 public class AuthorListAdapter extends ArrayAdapter<Author> {
 
-    public AuthorListAdapter(Context context, ArrayList<Author> authorArrayList) {
-        super(context,0, authorArrayList);
+    OnAuthorItemClickListener callback;
+
+    public AuthorListAdapter(Context context, ArrayList<Author> authorArrayList, OnAuthorItemClickListener callback) {
+        super(context, 0, authorArrayList);
+        this.callback = callback;
     }
 
 
@@ -28,13 +31,13 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
 
         // Check if the existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
-        if(listItemView == null) {
+        if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.author_item, parent, false);
         }
 
         // Get the {@link AndroidFlavor} object located at this position in the list
-        Author currentAuthor = getItem(position);
+        final Author currentAuthor = getItem(position);
 
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView authorsName = (TextView) listItemView.findViewById(R.id.authors_name_tv);
@@ -42,6 +45,16 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
         // set this text on the name TextView
         authorsName.setText(currentAuthor.getAuthorsName());
 
+        //TODO implementować tu czy w MainActivity?  implement it here or in MainActivity?
+        //TODO jakie param przekazać?  what params to pass?
+        authorsName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callback.onItemClick(getPosition(currentAuthor), currentAuthor);
+//                Intent i = new Intent(getContext(), SongListActivity.class);
+//                startActivity(i);
+            }
+        });
 //        // Find the TextView in the list_item.xml layout with the ID version_number
 //        TextView numberOfTracks = (TextView) listItemView.findViewById(R.id.number_of_tracks);
 //        // Get the version number from the current AndroidFlavor object and
@@ -52,10 +65,19 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
 //        ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
 //        // Get the image resource ID from the current AndroidFlavor object and
 //        // set the image to iconView
-//        iconView.setImageResource(currentAuthor.getImageResourceId());
+//        iconView.smageResource(currentAuthor.getImageResourceId());
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
         return listItemView;
+
+
+    }
+
+    //TODO what params to pass?
+    public interface OnAuthorItemClickListener {
+      public void onItemClick(int position, Author currentAuthor);
+
     }
 }
+

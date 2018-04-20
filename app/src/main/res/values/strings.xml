@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WMPlayer</string>
+    <string name="Toast"> Adapater</string>
 </resources>
