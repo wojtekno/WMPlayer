@@ -10,11 +10,15 @@ public class Song {
     private String author;
     private double time;
 
-    public Song(String title, String author, double time) {
+    public Song(String title, String author) {
         this.title = title;
         this.author = author;
-        this.time = time;
         assignToAuthor();
+    }
+
+    public Song(String title) {
+        this.title = title;
+        this.author = "NoName";
     }
 
     private void assignToAuthor() {}

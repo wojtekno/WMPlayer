@@ -51,9 +51,7 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
             @Override
             public void onClick(View view) {
                 callback.onItemClick(getPosition(currentAuthor), currentAuthor);
-//                Intent i = new Intent(getContext(), SongListActivity.class);
-//                startActivity(i);
-            }
+                          }
         });
 //        // Find the TextView in the list_item.xml layout with the ID version_number
 //        TextView numberOfTracks = (TextView) listItemView.findViewById(R.id.number_of_tracks);
