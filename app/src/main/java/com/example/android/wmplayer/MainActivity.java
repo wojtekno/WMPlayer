@@ -3,43 +3,51 @@ package com.example.android.wmplayer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    private final String TAG = "MainActivity";
     ArrayList<Author> authorDB;
     ArrayList<Song> songDB;
-    ArrayList<ArrayList<Song>> musicLibrary;
+    MusicLibrary musicLibrary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        authorDB = new ArrayList<Author>();
-        songDB = new ArrayList<Song>();
-        songDB.add(new Song("It's my life", "BonJovi"));
-        songDB.add(new Song("Enter Sandman", "Metallica"));
-        songDB.add(new Song("Sweet Dreams"));
-        musicLibrary = new ArrayList<ArrayList<Song>>();
-        createMusicLibrary();
+        musicLibrary = new MusicLibrary();
+        musicLibrary.addSong(new Song("Call of Ktullu", "Metallica"));
+        musicLibrary.addSong(new Song("It's my life", "BonJovi"));
+        musicLibrary.addSong("Enter Sandman", "Metallica");
+        musicLibrary.addSong(new Song("Sweet Dreams"));
 
+        authorDB = musicLibrary.getAuthorDB();
+//        authorDB.add(new Author("BonJovi", 13));
+//        authorDB.add(new Author("Republika"));
+//        Log.v(TAG, "authorDB.get(0): " + authorDB.get(0).getAuthorIndex());
+//        Log.v(TAG, "authorDB.get(1): " + authorDB.get(1).getAuthorIndex());
+//        musicLibrary.updateMusicLibrary();
+//        System.out.println(TAG);
+//        for (Author author : authorDB) {
+//            System.out.println(author.getAuthorName());
+//        }
+//        musicLibrary.printLibrary();
 
-        authorDB.add(new Author("BonJovi", 13));
-        authorDB.add(new Author("Republika"));
 
         AuthorListAdapter authorListAdapter = new AuthorListAdapter(this, authorDB, new AuthorListAdapter.OnAuthorItemClickListener() {
 
             //TODO implementować tu, czy w adapterze?  implement it here or in AuthorListAdapter?
             @Override
-            public void onItemClick(int position, Author currentAuthor) {
-                Toast.makeText(MainActivity.this, "Toast w MainActivity", Toast.LENGTH_SHORT).show();
+            public void onItemClick(int position) {
+//                Toast.makeText(MainActivity.this, "Toast w MainActivity", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, SongListActivity.class);
-                i.putExtra("name", currentAuthor.getAuthorsName());
-                i.putExtra("numberOfTracks", currentAuthor.getNumberOfTracks());
+                i.putExtra("name", authorDB.get(position).getAuthorName());
+                i.putExtra("numberOfTracks", authorDB.get(position).getNumberOfTracks());
+                Log.v(TAG, "number of tracks: " + authorDB.get(position).getNumberOfTracks());
                 startActivity(i);
             }
         });
@@ -56,29 +64,6 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(i);
 //            }
 //        });
-
-    }
-
-    private boolean createMusicLibrary() {
-        for (Song song : songDB) {
-            for (Author author : authorDB) {
-                int id = author.getAuthorId();
-                if (song.getAuthor().toLowerCase().equals(author.getAuthorsName().toLowerCase())) {
-                    author.addSongToAuthor();
-                    musicLibrary.get(id).add(song);
-                    return true;
-                }
-            }
-            createAuthor(song);
-            return false;
-        }
-        return false;
-    }
-
-    private void createAuthor(Song song) {
-        new Author(song.getAuthor());
-        musicLibrary.add(new ArrayList<Song>());
-        musicLibrary.get(Author.getAuthorId()).add(song);
 
     }
 

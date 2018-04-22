@@ -43,21 +43,24 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
         TextView authorsName = (TextView) listItemView.findViewById(R.id.authors_name_tv);
         // Get the version name from the current AndroidFlavor object and
         // set this text on the name TextView
-        authorsName.setText(currentAuthor.getAuthorsName());
+        authorsName.setText(currentAuthor.getAuthorName());
 
         //TODO implementować tu czy w MainActivity?  implement it here or in MainActivity?
         //TODO jakie param przekazać?  what params to pass?
         authorsName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.onItemClick(getPosition(currentAuthor), currentAuthor);
-                          }
+//                callback.onItemClick(getPosition(currentAuthor), currentAuthor);
+            callback.onItemClick(getPosition(currentAuthor));
+            }
         });
-//        // Find the TextView in the list_item.xml layout with the ID version_number
-//        TextView numberOfTracks = (TextView) listItemView.findViewById(R.id.number_of_tracks);
-//        // Get the version number from the current AndroidFlavor object and
-//        // set this text on the number TextView
-//        numberOfTracks.setText(currentAuthor.getNumberOfTracks());
+        // Find the TextView in the list_item.xml layout with the ID version_number
+        TextView numberOfTracks = (TextView) listItemView.findViewById(R.id.number_of_tracks);
+        // Get the version number from the current AndroidFlavor object and
+        // set this text on the number TextView
+        numberOfTracks.setText(String.valueOf(currentAuthor.getNumberOfTracks()));
+//        numberOfTracks.setText("6");
+
 
 //        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
 //        ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
@@ -74,7 +77,8 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
 
     //TODO what params to pass?
     public interface OnAuthorItemClickListener {
-      public void onItemClick(int position, Author currentAuthor);
+//        public void onItemClick(int position, Author currentAuthor);
+        void onItemClick(int position);
 
     }
 }

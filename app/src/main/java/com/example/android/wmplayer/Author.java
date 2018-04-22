@@ -7,35 +7,37 @@ import android.util.Log;
  */
 
 public class Author {
-    private String authorsName;
-    private static int authorId = 0;
+    private final String TAG = "Author.java";
+    private String authorName;
+    private int authorIndex;
+    private static int numberOfAuthors = 0;
     private int numberOfTracks;
 
     public Author(String name) {
-        this.authorsName = name;
-        this.authorId = authorId++;
-        Log.v("Author", "print author's authorId: "+ authorId);
-        this.numberOfTracks = 23;
+        this.authorName = name;
+        this.authorIndex = numberOfAuthors;
+        numberOfAuthors++;
+        Log.v(TAG, "print this.author.id: " + this.getAuthorIndex());
+        Log.v(TAG, "print Author.numberOfAuthors: " + Author.getNumberOfAuthors());
     }
 
-    public Author(String name, int numberOfTracks) {
-        this.authorsName = name;
-        this.numberOfTracks = numberOfTracks;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public String getAuthorsName() {
-        return authorsName;
+    public static int getNumberOfAuthors() {
+        return numberOfAuthors;
     }
 
-    public static int getAuthorId() {
-        return authorId;
+    public int getAuthorIndex() {
+        return authorIndex;
     }
 
     public int getNumberOfTracks() {
         return numberOfTracks;
     }
 
-    public void addSongToAuthor(){
-        numberOfTracks++;
+    public void setNumberOfTracks(int numberOfTracks) {
+        this.numberOfTracks = numberOfTracks;
     }
 }

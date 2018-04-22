@@ -13,7 +13,6 @@ public class Song {
     public Song(String title, String author) {
         this.title = title;
         this.author = author;
-        assignToAuthor();
     }
 
     public Song(String title) {
@@ -21,7 +20,6 @@ public class Song {
         this.author = "NoName";
     }
 
-    private void assignToAuthor() {}
 
     public String getTitle() {
         return title;
