@@ -19,11 +19,10 @@ public class SongListActivity extends AppCompatActivity {
         int pos = getIntent().getIntExtra("pos", 0);
         authorSong = MusicLibrary.getMusicLibrary().get(pos);
 
-
         ListView listView = findViewById(R.id.songlist_lv);
 
-        TextView testTV = (TextView) findViewById(R.id.now_playing_sl_tv);
-        testTV.setText(String.valueOf(getIntent().getIntExtra("numberOfTracks", 0)));
+        TextView playingNow = (TextView) findViewById(R.id.now_playing_sl_tv);
+        playingNow.setText(String.valueOf(getIntent().getIntExtra("numberOfTracks", 0)));
 
         final TextView name = (TextView) findViewById(R.id.test_tv);
         name.setText(getIntent().getStringExtra("name"));
