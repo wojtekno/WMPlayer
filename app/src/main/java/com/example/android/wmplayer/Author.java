@@ -17,8 +17,8 @@ public class Author {
         this.authorName = name;
         this.authorIndex = numberOfAuthors;
         numberOfAuthors++;
-        Log.v(TAG, "print this.author.id: " + this.getAuthorIndex());
-        Log.v(TAG, "print Author.numberOfAuthors: " + Author.getNumberOfAuthors());
+        Log.v(TAG, "public Author(String name):this.getAuthorIndex()): " + this.getAuthorIndex());
+        Log.v(TAG, "public Author(String name):Author.getNumberOfAuthors(): " + Author.getNumberOfAuthors());
     }
 
     public String getAuthorName() {
@@ -39,5 +39,8 @@ public class Author {
 
     public void setNumberOfTracks(int numberOfTracks) {
         this.numberOfTracks = numberOfTracks;
+    }
+    public static void resetNumberOfAuthors(){
+        numberOfAuthors = 0;
     }
 }

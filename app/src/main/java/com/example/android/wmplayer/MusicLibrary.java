@@ -22,6 +22,7 @@ public class MusicLibrary {
         authorDB = new ArrayList<Author>();
         songDB = new ArrayList<Song>();
         musicLibrary = new ArrayList<ArrayList<Song>>();
+        Author.resetNumberOfAuthors();
         updateMusicLibrary();
     }
 
@@ -32,11 +33,13 @@ public class MusicLibrary {
     public void addSong(String title, String authorName) {
         Song song = new Song(title, authorName);
         songDB.add(song);
+        Log.v(TAG, "public void addSong(String title, String authorName):songBg.size(): " + songDB.size());
         updateMusicLibrary(song);
     }
 
     public void addSong(Song song) {
         songDB.add(song);
+        Log.v(TAG, "public void addSong(Song song):songBg.size(): " + songDB.size());
         updateMusicLibrary(song);
     }
 
@@ -45,11 +48,13 @@ public class MusicLibrary {
         int authorIndex;
         for (Author author : authorDB) {
             authorIndex = author.getAuthorIndex();
+            Log.v(TAG, "updateMusicLibrary(Song song) authorIndex w pętli: " + authorIndex);
             //compare song's author with existing in the library
             if (song.getAuthor().toLowerCase().equals(author.getAuthorName().toLowerCase())) {
                 musicLibrary.get(authorIndex).add(song);
                 author.setNumberOfTracks(musicLibrary.get(authorIndex).size());
                 isAuthor = true;
+                Log.v(TAG, "updateMusicLibrary(Song song) song added ");
                 break;
             }
         }
@@ -90,12 +95,14 @@ public class MusicLibrary {
      Create @author, assign it's id in MusicLibrary and add the author to @authorDB
      */
     private void createAuthor(Song song) {
-        Log.v(TAG, "before: Author.class.getnuberofAuthors(): " + Author.getNumberOfAuthors());
+        int lastIndex;
+        Log.v(TAG, "before: createAuthor(Song song): Author.getNumberOfAuthors(): " + Author.getNumberOfAuthors());
         authorDB.add(new Author(song.getAuthor()));
+        lastIndex = Author.getNumberOfAuthors() - 1;
         musicLibrary.add(new ArrayList<Song>());
-        musicLibrary.get(Author.getNumberOfAuthors() - 1).add(song);
-        authorDB.get(Author.getNumberOfAuthors() - 1).setNumberOfTracks(musicLibrary.get(Author.getNumberOfAuthors() - 1).size());
-        Log.v(TAG, "after: Author.class.getnuberofAuthors(): " + Author.getNumberOfAuthors());
+        musicLibrary.get(lastIndex).add(song);
+        authorDB.get(lastIndex).setNumberOfTracks(musicLibrary.get(lastIndex).size());
+        Log.v(TAG, "after: createAuthor(Song song): Author.getNumberOfAuthors(): " + Author.getNumberOfAuthors());
 //        musicLibrary.add(new ArrayList<Song>());
 //        musicLibrary.get(Author.getNumberOfAuthors() - 1).add(song);
 //        updateNumberOftracks();
