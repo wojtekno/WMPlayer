@@ -1,5 +1,6 @@
 package com.example.android.wmplayer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
@@ -16,8 +17,8 @@ public class SongListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
 
-        int pos = getIntent().getIntExtra("pos", 0);
-        authorSong = MusicLibrary.getMusicLibrary().get(pos);
+        final int authorId = getIntent().getIntExtra("position", 0);
+        authorSong = MusicLibrary.getMusicLibrary().get(authorId);
 
         ListView listView = findViewById(R.id.songlist_lv);
 
@@ -32,6 +33,10 @@ public class SongListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 name.setText("juuupipipipipi");
+                Intent i = new Intent(SongListActivity.this, PlayingNowActivity.class);
+                i.putExtra("position",position);
+                i.putExtra("authorId", authorId);
+                startActivity(i);
 
             }
         });
