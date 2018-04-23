@@ -12,11 +12,11 @@ public class MusicLibrary {
 
     private final String TAG = "MusicLibrary.java";
     //ArrayList of all @Author
-    private ArrayList<Author> authorDB;
+    private static ArrayList<Author> authorDB;
     //ArrayList of all @Song
-    private ArrayList<Song> songDB;
+    private static ArrayList<Song> songDB;
     //Arraylist of ArrayLists of @Song matched with @Author
-    ArrayList<ArrayList<Song>> musicLibrary;
+    private static ArrayList<ArrayList<Song>> musicLibrary;
 
     public MusicLibrary() {
         authorDB = new ArrayList<Author>();
@@ -26,7 +26,7 @@ public class MusicLibrary {
         updateMusicLibrary();
     }
 
-    public ArrayList<Author> getAuthorDB() {
+    public static ArrayList<Author> getAuthorDB() {
         return authorDB;
     }
 
@@ -119,4 +119,11 @@ public class MusicLibrary {
         }
     }
 
+    public static ArrayList<Song> getSongDB() {
+        return songDB;
+    }
+
+    public static  ArrayList<ArrayList<Song>> getMusicLibrary() {
+        return musicLibrary;
+    }
 }
