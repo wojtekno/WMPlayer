@@ -13,17 +13,10 @@ public class MusicLibrary {
     private final String TAG = "MusicLibrary.java";
     //ArrayList of all @Author
     private static ArrayList<Author> authorDB;
-//    //ArrayList of all @Song
-//    private static ArrayList<Song> songDB;
-//    //Arraylist of ArrayLists of @Song matched with @Author
-//    private static ArrayList<ArrayList<Song>> musicLibrary;
 
     public MusicLibrary() {
         authorDB = new ArrayList<Author>();
-//        songDB = new ArrayList<Song>();
-//        musicLibrary = new ArrayList<ArrayList<Song>>();
         Author.resetNumberOfAuthors();
-//        updateMusicLibrary();
     }
 
     public static ArrayList<Author> getAuthorDB() {
@@ -32,14 +25,12 @@ public class MusicLibrary {
 
     public void addSong(String title, String authorName) {
         Song song = new Song(title, authorName);
-//        songDB.add(song);
-//        Log.v(TAG, "public void addSong(String title, String authorName):songBg.size(): " + songDB.size());
+        Log.v(TAG, "public void addSong(String title, String authorName):songBg.size(): " + totalNumberOfSongs());
         updateMusicLibrary(song);
     }
 
     public void addSong(Song song) {
-//        songDB.add(song);
-//        Log.v(TAG, "public void addSong(Song song):songBg.size(): " + songDB.size());
+        Log.v(TAG, "public void addSong(Song song):songBg.size(): " + totalNumberOfSongs());
         updateMusicLibrary(song);
     }
 
@@ -52,7 +43,7 @@ public class MusicLibrary {
             //compare song's author with existing in the library
             if (song.getAuthor().toLowerCase().equals(author.getAuthorName().toLowerCase())) {
                 authorDB.get(authorIndex).addSong(song);
-//                author.setNumberOfTracks(musicLibrary.get(authorIndex).size());
+                author.setNumberOfTracks(author.getSongsOfAuthor().size());
                 isAuthor = true;
                 Log.v(TAG, "updateMusicLibrary(Song song) song added ");
                 break;
@@ -60,8 +51,7 @@ public class MusicLibrary {
         }
         if (!isAuthor) {
             createAuthor(song);
-//            musicLibrary.add(new ArrayList<Song>());
-//            musicLibrary.get(Author.getNumberOfAuthors() - 1).add(song);
+
         }
 
     }
@@ -100,13 +90,8 @@ public class MusicLibrary {
         authorDB.add(new Author(song.getAuthor()));
         lastIndex = Author.getNumberOfAuthors() - 1;
         authorDB.get(lastIndex).addSong(song);
-//        musicLibrary.add(new ArrayList<Song>());
-//        musicLibrary.get(lastIndex).add(song);
-//        authorDB.get(lastIndex).setNumberOfTracks(musicLibrary.get(lastIndex).size());
+//        authorDB.get(lastIndex).setNumberOfTracks(getAuthorDB().size());
         Log.v(TAG, "after: createAuthor(Song song): Author.getNumberOfAuthors(): " + Author.getNumberOfAuthors());
-//        musicLibrary.add(new ArrayList<Song>());
-//        musicLibrary.get(Author.getNumberOfAuthors() - 1).add(song);
-//        updateNumberOftracks();
     }
 
 //    public void printLibrary() {
@@ -120,11 +105,13 @@ public class MusicLibrary {
 //        }
 //    }
 
-//    public static ArrayList<Song> getSongDB() {
-//        return songDB;
-//    }
-//
-//    public static  ArrayList<ArrayList<Song>> getMusicLibrary() {
-//        return musicLibrary;
-//    }
+    private int totalNumberOfSongs() {
+        int total = 0;
+        for (Author author : authorDB) {
+            for (Song song : author.getSongsOfAuthor()) {
+                total++;
+            }
+        }
+        return total;
+    }
 }

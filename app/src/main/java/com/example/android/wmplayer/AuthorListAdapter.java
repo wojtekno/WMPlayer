@@ -58,7 +58,7 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
         TextView numberOfTracks = (TextView) listItemView.findViewById(R.id.number_of_tracks);
         // Get the version number from the current AndroidFlavor object and
         // set this text on the number TextView
-        numberOfTracks.setText(String.valueOf(currentAuthor.getNumberOfTracks()));
+        numberOfTracks.setText(String.valueOf(currentAuthor.getSongsOfAuthor().size()));
 //        numberOfTracks.setText("6");
 
 

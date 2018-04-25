@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         musicLibrary = new MusicLibrary();
         musicLibrary.addSong(new Song("Call of Ktullu", "Metallica"));
         musicLibrary.addSong(new Song("It's my life", "BonJovi"));
@@ -26,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         musicLibrary.addSong(new Song("Sweet Dreams"));
 
         authorDB = musicLibrary.getAuthorDB();
+
+        TextView testTV = findViewById(R.id.now_playing_tv);
+        testTV.setText(String.valueOf(authorDB.size())+ String.valueOf(authorDB.get(1).getSongsOfAuthor().size()));
 //        authorDB.add(new Author("BonJovi", 13));
 //        authorDB.add(new Author("Republika"));
 //        Log.v(TAG, "authorDB.get(0): " + authorDB.get(0).getAuthorIndex());
@@ -45,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(int position) {
 //                Toast.makeText(MainActivity.this, "Toast w MainActivity", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, SongListActivity.class);
-                i.putExtra("name", authorDB.get(position).getAuthorName());
-                i.putExtra("numberOfTracks", authorDB.get(position).getNumberOfTracks());
-                i.putExtra("position", position);
+//                i.putExtra("name", authorDB.get(position).getAuthorName());
+//                i.putExtra("numberOfTracks", authorDB.get(position).getNumberOfTracks());
+//                i.putExtra("position", position);
+                i.putParcelableArrayListExtra("authorDB", authorDB.get(position).getSongsOfAuthor());
+                i.putExtra("author", authorDB.get(position));
                 Log.v(TAG, "number of tracks: " + authorDB.get(position).getNumberOfTracks());
                 startActivity(i);
             }

@@ -1,10 +1,13 @@
 package com.example.android.wmplayer;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Wojtek on 4/20/2018.
  */
 
-public class Song {
+public class Song implements Parcelable{
 
     private String title;
     private String author;
@@ -21,6 +24,24 @@ public class Song {
     }
 
 
+    protected Song(Parcel in) {
+        title = in.readString();
+        author = in.readString();
+        time = in.readDouble();
+    }
+
+    public static final Creator<Song> CREATOR = new Creator<Song>() {
+        @Override
+        public Song createFromParcel(Parcel in) {
+            return new Song(in);
+        }
+
+        @Override
+        public Song[] newArray(int size) {
+            return new Song[size];
+        }
+    };
+
     public String getTitle() {
         return title;
     }
@@ -33,4 +54,15 @@ public class Song {
         return time;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(author);
+        parcel.writeDouble(time);
+    }
 }
