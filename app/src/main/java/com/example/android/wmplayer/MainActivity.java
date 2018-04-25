@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, SongListActivity.class);
                 i.putExtra("name", authorDB.get(position).getAuthorName());
                 i.putExtra("numberOfTracks", authorDB.get(position).getNumberOfTracks());
-                i.putExtra("databse", songDB);
                 i.putExtra("position", position);
                 Log.v(TAG, "number of tracks: " + authorDB.get(position).getNumberOfTracks());
                 startActivity(i);

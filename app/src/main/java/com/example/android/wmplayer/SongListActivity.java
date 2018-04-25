@@ -11,30 +11,38 @@ import java.util.ArrayList;
 //TODO how to pass Arraylists from MusicLibrary to this class?
 public class SongListActivity extends AppCompatActivity {
     ArrayList<Song> authorSong;
+    int authorId;
+    String authorName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
 
-        final int authorId = getIntent().getIntExtra("position", 0);
-        authorSong = MusicLibrary.getMusicLibrary().get(authorId);
+        authorId = getIntent().getIntExtra("position", 0);
+        authorName = getIntent().getStringExtra("name");
+        authorSong = MusicLibrary.getAuthorDB().get(authorId).getSongOfAuthor();
 
         ListView listView = findViewById(R.id.songlist_lv);
 
         TextView playingNow = (TextView) findViewById(R.id.now_playing_sl_tv);
         playingNow.setText(String.valueOf(getIntent().getIntExtra("numberOfTracks", 0)));
 
-        final TextView name = (TextView) findViewById(R.id.test_tv);
-        name.setText(getIntent().getStringExtra("name"));
+        TextView authorNameTV = findViewById(R.id.author_tv);
+        authorNameTV.setText(authorName);
+
+        TextView numberOfTracksTV = findViewById(R.id.number_of_tracks_tv);
+        numberOfTracksTV.setText("13");
+
+//        TextView name = (TextView) findViewById(R.id.test_tv);
+//        name.setText(getIntent().getStringExtra("name"));
 
         SongListAdapter songListAdapter = new SongListAdapter(SongListActivity.this, authorSong, new AuthorListAdapter.OnAuthorItemClickListener() {
 
             @Override
             public void onItemClick(int position) {
-                name.setText("juuupipipipipi");
                 Intent i = new Intent(SongListActivity.this, PlayingNowActivity.class);
-                i.putExtra("position",position);
+                i.putExtra("position", position);
                 i.putExtra("authorId", authorId);
                 startActivity(i);
 

@@ -16,7 +16,7 @@ public class PlayingNowActivity extends AppCompatActivity {
 
         int songId = getIntent().getIntExtra("position", 0);
         int authorId = getIntent().getIntExtra("authorId", 0);
-        authorSong = MusicLibrary.getMusicLibrary().get(authorId);
+        authorSong = MusicLibrary.getAuthorDB().get(authorId).getSongOfAuthor();
 
         TextView author = findViewById(R.id.author_tv);
         author.setText(authorSong.get(0).getAuthor());
