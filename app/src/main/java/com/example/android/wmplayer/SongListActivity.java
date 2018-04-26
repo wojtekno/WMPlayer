@@ -11,25 +11,33 @@ import java.util.ArrayList;
 
 //TODO how to pass Arraylists from MusicLibrary to this class?
 public class SongListActivity extends AppCompatActivity {
-    private final String TAG = "SongListActivity";
+
     ArrayList<Song> songsOfAuthor;
+    Song nowPlayingSong;
     String authorName;
     Author author;
-    Song nowPlayingSOng;
+    private final String TAG = "SongListActivity";
+    private final String NPSONG = "NowPlayingSong";
+    private TextView playingNowTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
-        nowPlayingSOng = getIntent().getParcelableExtra("nPSong");
+
+        nowPlayingSong = getIntent().getParcelableExtra(NPSONG);
         author = getIntent().getExtras().getParcelable("author");
         authorName = author.getAuthorName();
         songsOfAuthor = author.getSongsOfAuthor();
         Log.v(TAG, "author.getsongs.get1: " + authorName + songsOfAuthor.get(0).getTitle());
+        Log.v(TAG, "ONCreate:nowPlayingSong: " + nowPlayingSong);
 
         ListView listView = findViewById(R.id.songlist_lv);
 
-        TextView playingNow = (TextView) findViewById(R.id.now_playing_tv);
-        playingNow.setText(String.valueOf(songsOfAuthor.size()));
+        playingNowTV = (TextView) findViewById(R.id.now_playing_tv);
+        if (nowPlayingSong != null) {
+            playingNowTV.setText(nowPlayingSong.getTitle());
+        }
 
         TextView authorNameTV = findViewById(R.id.author_tv);
         authorNameTV.setText(authorName);
@@ -41,13 +49,25 @@ public class SongListActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(int position) {
+                nowPlayingSong = songsOfAuthor.get(position);
+                Log.v(TAG, "OnClick:nowPlayingSong: " + nowPlayingSong);
+                sendNPSongToMainActivity(nowPlayingSong);
                 Intent i = new Intent(SongListActivity.this, PlayingNowActivity.class);
-                i.putExtra("song",songsOfAuthor.get(position));
+                i.putExtra(NPSONG, nowPlayingSong);
                 startActivity(i);
+                playingNowTV.setText(nowPlayingSong.getTitle());
 
             }
         });
 
         listView.setAdapter(songListAdapter);
     }
+
+    public void sendNPSongToMainActivity(Song nowPlayingSong) {
+        Intent intent = new Intent();
+        intent.putExtra(NPSONG, nowPlayingSong);
+        setResult(RESULT_OK, intent);
+    }
+
+
 }

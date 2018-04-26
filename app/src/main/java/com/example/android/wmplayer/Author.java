@@ -2,7 +2,6 @@ package com.example.android.wmplayer;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public class Author implements Parcelable {
     public Author(String name) {
         this.authorName = name;
         songsOfAuthor = new ArrayList<Song>();
-        Log.v(TAG, "public Author(String name):this.getAuthorIndex()): " + this.getAuthorIndex());
+//        Log.v(TAG, "public Author(String name):this.getAuthorIndex()): " + this.getAuthorIndex());
     }
 
     protected Author(Parcel in) {

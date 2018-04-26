@@ -1,7 +1,5 @@
 package com.example.android.wmplayer;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 /**
@@ -13,7 +11,7 @@ public class MusicLibrary {
     private final String TAG = "MusicLibrary.java";
     //ArrayList of all @Author
     private ArrayList<Author> authorDB;
-    private Song nowPlayingSong;
+    private static Song nowPlayingSong;
 
     public MusicLibrary() {
         authorDB = new ArrayList<Author>();
@@ -25,12 +23,12 @@ public class MusicLibrary {
 
     public void addSong(String title, String authorName) {
         Song song = new Song(title, authorName);
-        Log.v(TAG, "public void addSong(String title, String authorName):songBg.size(): " + totalNumberOfSongs());
+//        Log.v(TAG, "public void addSong(String title, String authorName):songBg.size(): " + totalNumberOfSongs());
         updateMusicLibrary(song);
     }
 
     public void addSong(Song song) {
-        Log.v(TAG, "public void addSong(Song song):songBg.size(): " + totalNumberOfSongs());
+//        Log.v(TAG, "public void addSong(Song song):songBg.size(): " + totalNumberOfSongs());
         updateMusicLibrary(song);
     }
 
@@ -39,12 +37,12 @@ public class MusicLibrary {
         int authorIndex;
         for (Author author : authorDB) {
             authorIndex = author.getAuthorIndex();
-            Log.v(TAG, "updateMusicLibrary(Song song) authorIndex w pętli: " + authorIndex);
+//            Log.v(TAG, "updateMusicLibrary(Song song) authorIndex w pętli: " + authorIndex);
             //compare song's author with existing in the library
             if (song.getAuthor().toLowerCase().equals(author.getAuthorName().toLowerCase())) {
                 authorDB.get(authorIndex).addSong(song);
                 isAuthor = true;
-                Log.v(TAG, "updateMusicLibrary(Song song) song added ");
+//                Log.v(TAG, "updateMusicLibrary(Song song) song added ");
                 break;
             }
         }
@@ -64,7 +62,7 @@ public class MusicLibrary {
     }
 
     //TODO use it in MainActivity
-    private int totalNumberOfSongs() {
+    public int totalNumberOfSongs() {
         int total = 0;
         for (Author author : authorDB) {
             for (Song song : author.getSongsOfAuthor()) {
@@ -74,11 +72,11 @@ public class MusicLibrary {
         return total;
     }
 
-    public Song getNowPlayingSong() {
+    public static Song getNowPlayingSong() {
         return nowPlayingSong;
     }
 
-    public void setNowPlayingSong(Song nowPlayingSong) {
-        this.nowPlayingSong = nowPlayingSong;
+    public static void setNowPlayingSong(Song newNowPlayingSong) {
+        nowPlayingSong = newNowPlayingSong;
     }
 }

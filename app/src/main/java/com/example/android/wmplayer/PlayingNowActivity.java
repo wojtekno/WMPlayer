@@ -6,13 +6,14 @@ import android.widget.TextView;
 
 public class PlayingNowActivity extends AppCompatActivity {
     Song song;
+    private final String NPSONG = "NowPlayingSong";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playing_now);
 
-        song = getIntent().getParcelableExtra("song");
+        song = getIntent().getParcelableExtra(NPSONG);
 
         TextView author = findViewById(R.id.author_tv);
         author.setText(song.getAuthor());
