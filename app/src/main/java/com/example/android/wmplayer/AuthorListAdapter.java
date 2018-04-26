@@ -27,7 +27,7 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         // Check if the existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
@@ -41,17 +41,13 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
 
         // Find the TextView in the list_item.xml layout with the ID version_name
         TextView authorsName = (TextView) listItemView.findViewById(R.id.authors_name_tv);
-        // Get the version name from the current AndroidFlavor object and
-        // set this text on the name TextView
         authorsName.setText(currentAuthor.getAuthorName());
 
-        //TODO implementować tu czy w MainActivity?  implement it here or in MainActivity?
-        //TODO jakie param przekazać?  what params to pass?
-        authorsName.setOnClickListener(new View.OnClickListener() {
+
+        listItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                callback.onItemClick(getPosition(currentAuthor), currentAuthor);
-            callback.onItemClick(getPosition(currentAuthor));
+                callback.onItemClick(position);
             }
         });
         // Find the TextView in the list_item.xml layout with the ID version_number
@@ -59,14 +55,6 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
         // Get the version number from the current AndroidFlavor object and
         // set this text on the number TextView
         numberOfTracks.setText(String.valueOf(currentAuthor.getSongsOfAuthor().size()));
-//        numberOfTracks.setText("6");
-
-
-//        // Find the ImageView in the list_item.xml layout with the ID list_item_icon
-//        ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
-//        // Get the image resource ID from the current AndroidFlavor object and
-//        // set the image to iconView
-//        iconView.smageResource(currentAuthor.getImageResourceId());
 
         // Return the whole list item layout (containing 2 TextViews and an ImageView)
         // so that it can be shown in the ListView
@@ -77,7 +65,7 @@ public class AuthorListAdapter extends ArrayAdapter<Author> {
 
     //TODO what params to pass?
     public interface OnAuthorItemClickListener {
-//        public void onItemClick(int position, Author currentAuthor);
+        //        public void onItemClick(int position, Author currentAuthor);
         void onItemClick(int position);
 
     }

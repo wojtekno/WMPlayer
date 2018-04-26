@@ -12,45 +12,37 @@ import java.util.ArrayList;
 //TODO how to pass Arraylists from MusicLibrary to this class?
 public class SongListActivity extends AppCompatActivity {
     private final String TAG = "SongListActivity";
-    ArrayList<Song> authorSong;
-    int authorId;
+    ArrayList<Song> songsOfAuthor;
     String authorName;
     Author author;
+    Song nowPlayingSOng;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_list);
-
+        nowPlayingSOng = getIntent().getParcelableExtra("nPSong");
         author = getIntent().getExtras().getParcelable("author");
         authorName = author.getAuthorName();
-        authorSong = getIntent().getParcelableArrayListExtra("authorDB");
-        Log.v(TAG, "author name and song1: " + authorName + authorSong.get(0));
-//        authorId = getIntent().getIntExtra("position", 0);
-//        authorName = getIntent().getStringExtra("name");
-//        authorSong = MusicLibrary.getAuthorDB().get(authorId).getSongsOfAuthor();
+        songsOfAuthor = author.getSongsOfAuthor();
+        Log.v(TAG, "author.getsongs.get1: " + authorName + songsOfAuthor.get(0).getTitle());
 
         ListView listView = findViewById(R.id.songlist_lv);
 
-        TextView playingNow = (TextView) findViewById(R.id.now_playing_sl_tv);
-        playingNow.setText(String.valueOf(getIntent().getIntExtra("numberOfTracks", 0)));
+        TextView playingNow = (TextView) findViewById(R.id.now_playing_tv);
+        playingNow.setText(String.valueOf(songsOfAuthor.size()));
 
         TextView authorNameTV = findViewById(R.id.author_tv);
         authorNameTV.setText(authorName);
 
         TextView numberOfTracksTV = findViewById(R.id.number_of_tracks_tv);
-        numberOfTracksTV.setText("13");
+        numberOfTracksTV.setText(String.valueOf(songsOfAuthor.size()));
 
-//        TextView name = (TextView) findViewById(R.id.test_tv);
-//        name.setText(getIntent().getStringExtra("name"));
-
-        SongListAdapter songListAdapter = new SongListAdapter(SongListActivity.this, authorSong, new AuthorListAdapter.OnAuthorItemClickListener() {
+        final SongListAdapter songListAdapter = new SongListAdapter(SongListActivity.this, author.getSongsOfAuthor(), new AuthorListAdapter.OnAuthorItemClickListener() {
 
             @Override
             public void onItemClick(int position) {
                 Intent i = new Intent(SongListActivity.this, PlayingNowActivity.class);
-                i.putExtra("song", authorSong.get(position));
-//                i.putExtra("position", position);
-//                i.putExtra("authorId", authorId);
+                i.putExtra("song",songsOfAuthor.get(position));
                 startActivity(i);
 
             }

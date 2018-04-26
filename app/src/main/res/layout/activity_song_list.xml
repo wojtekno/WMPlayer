@@ -35,10 +35,12 @@
 
 
     <TextView
-        android:id="@+id/now_playing_sl_tv"
+        android:id="@id/now_playing_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        tools:text="now playing" />
+        tools:text="now playing"
+        android:paddingLeft="24dp"/>
+
 
 </LinearLayout>

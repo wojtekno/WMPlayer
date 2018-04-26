@@ -37,11 +37,11 @@ public class SongListAdapter extends ArrayAdapter<Song> {
 
         final TextView songTitle = listItemView.findViewById(R.id.song_list_item_tv);
         songTitle.setText(currentSong.getTitle());
-        songTitle.setOnClickListener(new View.OnClickListener() {
+      listItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callback.onItemClick(position);
-                songTitle.setText("one two three");
+//                songTitle.setText("one two three");
             }
         });
 
