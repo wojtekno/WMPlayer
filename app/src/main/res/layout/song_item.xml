@@ -10,6 +10,7 @@
         android:id="@+id/song_list_item_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Extasy of gold"/>
+        tools:text="Extasy of gold"
+        android:textSize="24sp"/>
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,9 +35,19 @@ public class SongListActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.songlist_lv);
 
-        playingNowTV = (TextView) findViewById(R.id.now_playing_tv);
+        playingNowTV = (TextView) findViewById(R.id.now_playing_title_tv);
+        playingNowTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SongListActivity.this, PlayingNowActivity.class);
+                i.putExtra(NPSONG, nowPlayingSong);
+                startActivity(i);
+            }
+        });
+        playingNowTV.setVisibility(View.GONE);
         if (nowPlayingSong != null) {
-            playingNowTV.setText(nowPlayingSong.getTitle());
+            playingNowTV.setText("playing: " + nowPlayingSong.getTitle());
+            playingNowTV.setVisibility(View.VISIBLE);
         }
 
         TextView authorNameTV = findViewById(R.id.author_tv);
@@ -55,7 +66,8 @@ public class SongListActivity extends AppCompatActivity {
                 Intent i = new Intent(SongListActivity.this, PlayingNowActivity.class);
                 i.putExtra(NPSONG, nowPlayingSong);
                 startActivity(i);
-                playingNowTV.setText(nowPlayingSong.getTitle());
+                playingNowTV.setText("playing: " + nowPlayingSong.getTitle());
+                playingNowTV.setVisibility(View.VISIBLE);
 
             }
         });

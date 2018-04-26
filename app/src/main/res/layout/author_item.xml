@@ -5,12 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:paddingTop="16dp">
 
     <TextView
         android:id="@+id/authors_name_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="24sp"
         tools:text="Metallica" />
 
     <TextView
@@ -18,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
+        android:textSize="24sp"
         tools:text="35" />
 
 </LinearLayout>

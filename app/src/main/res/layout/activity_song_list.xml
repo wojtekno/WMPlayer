@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,8 +15,8 @@
             android:id="@+id/author_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:textSize="24sp"
+            android:layout_weight="6"
+            android:textSize="32sp"
             tools:text="Techno Lolipop" />
 
         <TextView
@@ -23,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="24sp"
+            android:textSize="32sp"
             tools:text="13" />
     </LinearLayout>
 
@@ -35,7 +36,7 @@
 
 
     <TextView
-        android:id="@id/now_playing_tv"
+        android:id="@id/now_playing_title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"

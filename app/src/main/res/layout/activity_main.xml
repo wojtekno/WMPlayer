@@ -5,21 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.android.wmplayer.MainActivity">
+        tools:context="com.example.android.wmplayer.MainActivity">
 
-    <GridView
+    <TextView
+        style="@style/padding"
+        android:id="@+id/totatl_number_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        tools:text="Total: 35 tracks" />
+
+    <ListView
+        style="@style/padding"
         android:id="@+id/authorlist_gv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:numColumns="2"></GridView>
+        android:numColumns="2"></ListView>
+
 
     <TextView
-        android:id="@+id/now_playing_tv"
+        android:backgroundTint="@android:color/darker_gray"
+        android:background="@color/colorPrimary"
+        android:id="@+id/now_playing_title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="24dp"
+        android:gravity="center_horizontal"
         android:text="Hello World!"
         android:textSize="24sp" />
+
 
 </LinearLayout>

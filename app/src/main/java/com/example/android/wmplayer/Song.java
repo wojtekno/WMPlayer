@@ -20,7 +20,7 @@ public class Song implements Parcelable{
 
     public Song(String title) {
         this.title = title;
-        this.author = "NoName";
+        this.author = "Unknown";
     }
 
 

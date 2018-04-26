@@ -3,7 +3,8 @@ package com.example.android.wmplayer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.GridView;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "MainActivity";
     private final String NPSONG = "NowPlayingSong";
     String testing;
-    TextView nowPlayingTV;
+    TextView nowPlayingTitleTV;
+    TextView headerTV;
 
 
     @Override
@@ -23,17 +25,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        testing = "onCreate";
+
         musicLibrary = new MusicLibrary();
         musicLibrary.addSong(new Song("Call of Ktullu", "Metallica"));
         musicLibrary.addSong(new Song("It's my life", "BonJovi"));
         musicLibrary.addSong("Enter Sandman", "Metallica");
         musicLibrary.addSong(new Song("Sweet Dreams"));
 
+        testing = String.valueOf(musicLibrary.totalNumberOfSongs());
         authorDB = musicLibrary.getAuthorDB();
 
-        nowPlayingTV = findViewById(R.id.now_playing_tv);
-//        nowPlayingTV.setText(String.valueOf(musicLibrary.totalNumberOfSongs()));
+        headerTV = findViewById(R.id.totatl_number_tv);
+        headerTV.setText("Total: " + testing + " songs");
+        nowPlayingTitleTV = findViewById(R.id.now_playing_title_tv);
+        nowPlayingTitleTV.setVisibility(View.GONE);
+        nowPlayingTitleTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PlayingNowActivity.class);
+                intent.putExtra(NPSONG, nowPlayingSong);
+                startActivity(intent);
+                            }
+        });
 
         AuthorListAdapter authorListAdapter = new AuthorListAdapter(this, authorDB, new AuthorListAdapter.OnAuthorItemClickListener() {
 
@@ -49,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(i);
             }
         });
-        GridView authorGridView = findViewById(R.id.authorlist_gv);
-        authorGridView.setAdapter(authorListAdapter);
+        ListView authorListView = findViewById(R.id.authorlist_gv);
+        authorListView.setAdapter(authorListAdapter);
 
     }
 
@@ -60,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 nowPlayingSong = data.getParcelableExtra(NPSONG);
-                nowPlayingTV.setText(nowPlayingSong.getTitle());
+                nowPlayingTitleTV.setText("playing: " + nowPlayingSong.getTitle());
+                nowPlayingTitleTV.setVisibility(View.VISIBLE);
             }
         }
     }
